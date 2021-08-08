@@ -38,7 +38,9 @@ $( document ).ready(function() {
 	
 	var x;
 	for(x=0 ; x<detected_by_scraper.length ; ++x){
-		var display = '名稱: <b>';
+		var display = '<div style="font-size: 2vh;">自動偵測 ';
+		display += (x + 1);
+		display += '<br>名稱: <b>';
 		display += detected_by_scraper[x].name;
 		display += '</b><br>';
 		display += '位置: ';
@@ -46,13 +48,16 @@ $( document ).ready(function() {
 		display += ' ';
 		display += detected_by_scraper[x].lon;
 		display += '<br>';
-		display += '<a target="_blank" rel="noopener noreferrer" href = "http://maps.google.com/maps?q=&layer=c&cbll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">街景連結</a>';
+		display += '<a target="_blank" rel="noopener noreferrer" href = "http://maps.google.com/maps?q=&layer=c&cbll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">Google 街景</a><br>';
+		display += '<a target="_blank" rel="noopener noreferrer" href = "https://intel.ingress.com/intel?ll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '&z=18&pll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">Ingress</a></div>';
 		
 		L.marker([detected_by_scraper[x].lat, detected_by_scraper[x].lon], {icon: yellow_point}).addTo(mymap).bindPopup(display);
 	}
 	
 	for(x=0 ; x<confirmed_by_players.length ; ++x){
-		var display = '名稱: <b>';
+		var display = '<div style="font-size: 2vh;">回報 ';
+		display += (x + 1);
+		display += '<br>名稱: <b>';
 		display += confirmed_by_players[x].name;
 		display += '</b><br>';
 		display += '位置: ';
@@ -60,9 +65,28 @@ $( document ).ready(function() {
 		display += ' ';
 		display += confirmed_by_players[x].lon;
 		display += '<br>';
-		display += '<a target="_blank" rel="noopener noreferrer" href = "http://maps.google.com/maps?q=&layer=c&cbll=' + confirmed_by_players[x].lat + ',' + confirmed_by_players[x].lon + '">街景連結</a>';
+		display += '<a target="_blank" rel="noopener noreferrer" href = "http://maps.google.com/maps?q=&layer=c&cbll=' + confirmed_by_players[x].lat + ',' + confirmed_by_players[x].lon + '">Google 街景</a><br>';
+		display += '<a target="_blank" rel="noopener noreferrer" href = "https://intel.ingress.com/intel?ll=' + confirmed_by_players[x].lat + ',' + confirmed_by_players[x].lon + '&z=18&pll=' + confirmed_by_players[x].lat + ',' + confirmed_by_players[x].lon + '">Ingress</a></div>';
 		
-		L.marker([confirmed_by_players[x].lat, confirmed_by_players[x].lon], {icon: red_point}).addTo(mymap).bindPopup(display);
+		L.marker([confirmed_by_players[x].lat, confirmed_by_players[x].lon], {icon: red_point}).addTo(mymap).bindPopup(display, {maxWidth : 600});
 	}
+	
+	$('#hide_red').click(function(){
+		if($('img[src="img/red_point.png"]').eq(0).css('display') == 'none'){
+			$('img[src="img/red_point.png"]').css('display', 'block');
+		}
+		else{
+			$('img[src="img/red_point.png"]').css('display', 'none');
+		}
+	});
+	
+	$('#hide_yellow').click(function(){
+		if($('img[src="img/yellow_point.png"]').eq(0).css('display') == 'none'){
+			$('img[src="img/yellow_point.png"]').css('display', 'block');
+		}
+		else{
+			$('img[src="img/yellow_point.png"]').css('display', 'none');
+		}
+	});
 	
 });

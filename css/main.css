@@ -2,6 +2,30 @@ html, body{
 	height: 100%;
 	margin: 0;
 }
+
 #mapid{
 	height: 100%;
+}
+
+#hide_red{
+	position: absolute;
+	width: 7vh;
+	height: 7vh;
+	z-index: 10000;
+	background: #fb3c3f;
+	top: 15px;
+	right: 15px;
+	border-radius: 1.8vh;
+}
+
+#hide_yellow{
+	position: absolute;
+	width: 7vh;
+	height: 7vh;
+	z-index: 10000;
+	background: #ff8d11;
+	top: 15px;
+	right: 15px;
+	border-radius: 1.8vh;
+	margin-top: 9vh;
 }

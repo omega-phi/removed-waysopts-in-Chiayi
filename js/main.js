@@ -35,6 +35,12 @@ $( document ).ready(function() {
 		iconAnchor: iconAnchor,
 		popupAnchor: popupAnchor
 	});
+	var check = L.icon({
+		iconUrl: 'img/check.png',
+		iconSize: [20, 20],
+		iconAnchor: [8, 28],
+		popupAnchor: popupAnchor
+	});
 	
 	var x;
 	for(x=0 ; x<detected_by_scraper.length ; ++x){
@@ -49,9 +55,22 @@ $( document ).ready(function() {
 		display += detected_by_scraper[x].lon;
 		display += '<br>';
 		display += '<a target="_blank" rel="noopener noreferrer" href = "http://maps.google.com/maps?q=&layer=c&cbll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">Google 街景</a><br>';
-		display += '<a target="_blank" rel="noopener noreferrer" href = "https://intel.ingress.com/intel?ll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '&z=18&pll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">Ingress</a></div>';
+		display += '<a target="_blank" rel="noopener noreferrer" href = "https://intel.ingress.com/intel?ll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '&z=18&pll=' + detected_by_scraper[x].lat + ',' + detected_by_scraper[x].lon + '">Ingress</a>';
+		
+		if(detected_by_scraper[x].status != ''){
+			display += '<br>';
+			display += detected_by_scraper[x].status
+			if(detected_by_scraper[x].note != ''){
+				display += '<br>';
+				display += detected_by_scraper[x].note
+			}
+		}
+		display += '</div>';
 		
 		L.marker([detected_by_scraper[x].lat, detected_by_scraper[x].lon], {icon: yellow_point}).addTo(mymap).bindPopup(display);
+		if(detected_by_scraper[x].status != ''){
+			L.marker([detected_by_scraper[x].lat, detected_by_scraper[x].lon], {icon: check}).addTo(mymap);
+		}
 	}
 	
 	for(x=0 ; x<confirmed_by_players.length ; ++x){
@@ -83,9 +102,11 @@ $( document ).ready(function() {
 	$('#hide_yellow').click(function(){
 		if($('img[src="img/yellow_point.png"]').eq(0).css('display') == 'none'){
 			$('img[src="img/yellow_point.png"]').css('display', 'block');
+			$('img[src="img/check.png"]').css('display', 'block');
 		}
 		else{
 			$('img[src="img/yellow_point.png"]').css('display', 'none');
+			$('img[src="img/check.png"]').css('display', 'none');
 		}
 	});
 	
